@@ -1,88 +1,119 @@
+import { useState, setState } from 'react';
+
 import React, {Component} from 'react';
-import FeedbackButtons from './FeedBackOptions/feedBackOptions';
-import Notification from './Notification/Notification'
-import Statistics from './Statistics/statistics';
+import { nanoid } from 'nanoid'
 
 
-export default class App extends Component {
 
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-    isActive: false,
-    options : [
-      "Good",
-      "Neutral",
-      "Bad"]
-  };
+const App =()=> {
+
+  const [good, setGoodState] = useState(0);
+  const [neutral, setNeutraldState] = useState(0);
+  const [bad, setBadState] = useState(0);
+  // const [isActive, setisActive] = useState(false);
+
+
+//
+//     options : [
+//       "Good",
+//       "Neutral",
+//       "Bad"]
+
 
  
-countTotalFeedback ()  {
-    const total = this.state.good + this.state.neutral + this.state.bad;
+const countTotalFeedback = () => {
+    const total = good + neutral + bad;
     return total
   };
 
-countPositiveFeedbackPercentage  () {
-    const total = this.state.good + this.state.neutral + this.state.bad;
+  const countPositiveFeedbackPercentage = () => {
+    const total = good + neutral + neutral;
     if (total === 0) {
       return
     }
-    const percentage = Math.round((this.state.good * 100) / total); 
+    const percentage = Math.round((good * 100) / total); 
     return percentage;
   };
 
-  changeState = (event) => {
-    const defBtn = event.currentTarget.textContent;
 
+const  changeState = (event) => {
+  const  = event.currentTarget.textContent;
+
+  setGoodState(prevState => prevState+1)
     if (defBtn === 'Good') {
-            this.setState(prevState => {
-              return {
-                good: prevState.good + 1,
-                isActive: true,
-              };
-            });
-          } else if (defBtn === 'Neutral') {
-            this.setState(prevState => {
-              return {
-                neutral: prevState.neutral + 1,
-                isActive: true,
-              };
-            });
-          } else {
-            this.setState(prevState => {
-              return {
-                bad: prevState.bad + 1,
-                isActive: true,
-              };
-            });
+      setGoodState(prevState => prevState+1)
+              }; 
+    if (defBtn === 'Neutral') {
+      setNeutraldState(prevState => prevState+1);
+          }  
+    if (defBtn === 'Bad') {
+            setBadState(prevState => prevState+1);
           }
-}
+  
+  }
 
-  render() {
+ const  changeState = (event) => {
+    const {name} = event.currentTarget.textContent;
+  
+    switch (name) {
+      case 'Good':
+        setGoodState(prevState => prevState+1)
+        break;
+
+        case 'Neutral':
+        setGoodState(prevState => prevState+1)
+        break;
+    
+      default:
+        break;
+    }
+    
+    }
+
+
+//   render() {
     
     return (
-      <div>
-         
-       <Statistics 
-       good={this.state.good} 
-       neutral={this.state.neutral} 
-       bad={this.state.bad} 
-       total={this.countTotalFeedback()} 
-       positivePercentage={this.countPositiveFeedbackPercentage()}
-       isActive={this.state.isActive}
-       />
 
-       <Notification isActive={this.state.isActive} message="There is no feedback"
-        />   
-          
-          <FeedbackButtons onleavefeedback = {this.changeState}
-          options={this.state.options}/>
-          
+      <div>
+        <ul >
+      Statistics
+      <li >Good {good}</li>
+      <li >Neural {neutral}</li>
+      <li >Bad {bad}</li>
+      <li >Total {countTotalFeedback()}</li>
+      <li >Positive feedback {countPositiveFeedbackPercentage}%</li>
+    </ul>
+         <div>
+         <button  type="button"  onClick={changeState} key={nanoid()}>
+        <samp>Good</samp></button>
+         <button  type="button"  onClick={changeState} key={nanoid()}>
+        <samp>Neutral</samp></button>
+        <button type="button"  onClick={changeState} key={nanoid()}>
+        <samp>Bad</samp></button>
+      </div>
+
         </div>
 
       
     );
-  }
+
 }
 
+export default App
+
+
+{/* <Statistics  */}
+//        good={this.state.good} 
+//        neutral={this.state.neutral} 
+//        bad={this.state.bad} 
+//        total={this.countTotalFeedback()} 
+//        positivePercentage={this.countPositiveFeedbackPercentage()}
+//        isActive={this.state.isActive}
+//        />
+
+//        <Notification isActive={this.state.isActive} message="There is no feedback"
+//         />   
+          
+//           <FeedbackButtons onleavefeedback = {this.changeState}
+//           options={this.state.options}/>
