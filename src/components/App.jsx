@@ -24,7 +24,7 @@ const countTotalFeedback = () => {
   };
 
   const countPositiveFeedbackPercentage = () => {
-    const total = good + neutral + neutral;
+    const total = good + neutral + bad;
     if (total === 0) {
       return
     }
